@@ -1,14 +1,17 @@
+# ALL GAMES
 get '/games' do
   @games = Game.all
   erb :"games/index"
 end
 
+# NEW GAME
 get '/games/new' do
   authenticate!
   @game = Game.new
   erb :"games/new"
 end
 
+# CREATE GAME
 post '/games' do
   authenticate!
   @game = Game.new(params[:game])
@@ -22,6 +25,7 @@ post '/games' do
   end
 end
 
+# SHOW GAME
 get '/games/:id' do
   @game = Game.find_by(id: params[:id])
   erb :"games/show"
@@ -34,6 +38,7 @@ get '/games/:id/edit' do
   erb :"games/edit"
 end
 
+# EDIT GAME
 put '/games/:id' do
   authenticate!
   @game = Game.find_by(id: params[:id])
@@ -47,6 +52,7 @@ put '/games/:id' do
   end
 end
 
+# DELETE GAME
 delete '/games/:id' do
   authenticate!
   @game = Game.find_by(id: params[:id])
