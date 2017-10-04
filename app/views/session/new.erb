@@ -1,11 +1,10 @@
-<h3>Login</h3>
-
+<h2>Log in to your account</h2>
 <% if @message %>
 <p><%= @message %></p>
 <% end %>
 
 <form method="POST" action="/sessions">
-  <input type="text" name="username" placeholder="Username">
-  <input type="password" name="password" placeholder="Password">
-  <input type="submit">
+  <input type="text" name="username" placeholder="Username" class="block w-100 no-outline no-border pad-1 mar-b-2">
+  <input type="password" name="password" placeholder="Password" class="block w-100 no-outline no-border pad-1 mar-b-2">
+    <input type="submit" tabindex="3" class="block button w-100 mar-t-4 mar-b-3 pad-2 round-1 text-c center no-border no-outline">
 </form>
