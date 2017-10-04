@@ -1,19 +1,19 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include BCrypt
+  has_many :entries, foreign_key: "author_id"
+  # :dependent => :destroy
 
-  has_many :games
-
-  validates :username, :name, presence: true
+  validates :username, :email, presence: true
   validate :validate_password
 
   def password
-    @password ||= Password.new(password_type_thing)
+    @password ||= Password.new(hashed_password)
   end
 
   def password=(plain_text_password)
     @raw_password = plain_text_password
     @password = Password.create(plain_text_password)
-    self.password_type_thing = @password
+    self.hashed_password = @password
   end
 
   def authenticate(plain_text_password)
@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
   def validate_password
     if @raw_password.nil?
       errors.add(:password, "is required")
-    elsif @raw_password.length < 6
-      errors.add(:password, "must be 6 characters or more")
+    elsif @raw_password.length < 8
+      errors.add(:password, "must be 8 characters or more")
     end
   end
+
 end
